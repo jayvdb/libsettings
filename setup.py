@@ -37,14 +37,11 @@ PLATFORMS = [
 ]
 
 HERE = os.path.dirname(__file__)
-print("__file__", __file__)
-print("HERE", HERE)
-ROOT = HERE if HERE else "."
-ROOT = os.path.abspath(ROOT)
-print("ROOT", ROOT)
-include_dirs = ["{}/include".format(ROOT), "{}/third_party/libsbp/c/include".format(ROOT), "{}/third_party/libswiftnav/include".format(ROOT)]
+if HERE:
+    os.chdir(HERE)
+include_dirs = ["include", "third_party/libsbp/c/include", "third_party/libswiftnav/include"]
 print("include_dirs", include_dirs)
-sources = glob("{}/python/*.pyx".format(ROOT)) + glob("{}/src/*.c".format(ROOT)) + glob("{}/third_party/libswiftnav/src/logging*.c".format(ROOT))
+sources = glob("python/*.pyx") + glob("src/*.c") + glob("third_party/libswiftnav/src/logging*.c")
 print("sources", sources)
 py_version = '{}{}'.format(sys.version_info[0], sys.version_info[1])
 
