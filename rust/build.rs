@@ -14,7 +14,7 @@ fn main() {
     let mut dst = Config::new("..")
         .define("SKIP_UNIT_TESTS", "ON")
         .define("BUILD_SHARED_LIBS", "OFF")
-        .define("PYTHON", "python3")
+        .define("libsettings_ENABLE_PYTHON", "OFF")
         .build();
     println!("cargo:rustc-link-search=native={}/lib", dst.display());
 
