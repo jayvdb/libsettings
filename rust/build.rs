@@ -18,7 +18,7 @@ fn main() {
         .build();
     println!("cargo:rustc-link-search=native={}/lib", dst.display());
 
-    dst = cmake::build(".");
+    dst = Config::new(".").very_verbose(true).build();
     println!("cargo:rustc-link-search=native={}/lib", dst.display());
 
     println!("cargo:rustc-link-lib=static=sbp");
