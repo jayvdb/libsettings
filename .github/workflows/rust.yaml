@@ -35,6 +35,9 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Set up Visual Studio shell
+        uses: egor-tensin/vs-shell@v2
+
       - uses: conda-incubator/setup-miniconda@v2
         with:
           auto-update-conda: true
@@ -47,18 +50,20 @@ jobs:
 
       - name: Install pthreads
         if: matrix.os == 'windows-latest'
-        run: mamba install pthreads-win32
+        run: mamba install pthreads-win32 pkg-config
+
+      - name: Show conda installation info
+        shell: shell
+        run: |
+          conda info
+          mamba list
 
       - name: Configure cmake (WINDOWS)
         if: matrix.os == 'windows-latest'
         working-directory: ${{ github.workspace }}/build
-        shell: pwsh
+        shell: shell
         run: |
-          & "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat" x86
-          cmake .. `
-            -DCMAKE_INSTALL_PREFIX:PATH=$env:CONDA_PREFIX `
-            -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} `
-            -DPKG_CONFIG_EXECUTABLE:FILEPATH=$env:CONDA_PREFIX/Library/bin/pkg-config.exe
+          cmake ../rust -DCMAKE_INSTALL_PREFIX:PATH=$CONDA_PREFIX -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} -DPKG_CONFIG_EXECUTABLE:FILEPATH=$CONDA_PREFIX/Library/bin/pkg-config.exe
 
       - name: Build
         working-directory: ${{ github.workspace }}/build
