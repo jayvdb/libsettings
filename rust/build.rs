@@ -12,10 +12,10 @@ fn main() {
     // Builds the project in the root directory, installing it
     // into $OUT_DIR
     let mut dst = Config::new("..")
-                        .define("SKIP_UNIT_TESTS", "ON")
-                        .define("BUILD_SHARED_LIBS", "OFF")
-                        .define("PYTHON", "python3")
-                        .build();
+        .define("SKIP_UNIT_TESTS", "ON")
+        .define("BUILD_SHARED_LIBS", "OFF")
+        .define("PYTHON", "python3")
+        .build();
     println!("cargo:rustc-link-search=native={}/lib", dst.display());
 
     dst = cmake::build(".");
