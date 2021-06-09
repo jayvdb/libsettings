@@ -6,7 +6,7 @@
 #include <string.h>
 #include <time.h>
 
-#ifdef WIN32
+#ifdef _MSC_VER
 #include <windows.h>
 #include <winsock2.h>
 #else
