@@ -1,11 +1,17 @@
 #include <assert.h>
 #include <errno.h>
-#include <pthread.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+
+#ifdef WIN32
+#include <windows.h>
+#include <winsock2.h>
+#else
+#include <pthread.h>
+#endif
 
 #include "libsettings_wrapper.h"
 
