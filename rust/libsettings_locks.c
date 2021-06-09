@@ -7,7 +7,6 @@
 #include <time.h>
 
 #ifdef _MSC_VER
-#include <windows.h>
 #include <winsock2.h>
 #else
 #include <pthread.h>
