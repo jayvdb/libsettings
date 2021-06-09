@@ -27,12 +27,23 @@ jobs:
     strategy:
       matrix:
         os:
-          - windows-2016
+          - windows-latest
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
         with:
           submodules: recursive
+
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          auto-update-conda: true
+          mamba-version: "*"
+          channels: conda-forge,defaults
+          channel-priority: true
+
+      - name: Install pthreads
+        if: matrix.os == 'windows-latest'
+        run: mamba install pthreads-win32
 
       - uses: actions-rs/toolchain@v1
         with:
