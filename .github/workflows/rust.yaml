@@ -58,6 +58,10 @@ jobs:
       - name: Show mamba list
         run: mamba list
 
+      - name: Make cmake build directory
+        working-directory: ${{ github.workspace }}
+        run: cmake -E make_directory build
+
       - name: Configure cmake (WINDOWS)
         if: matrix.os == 'windows-latest'
         working-directory: ${{ github.workspace }}/build
