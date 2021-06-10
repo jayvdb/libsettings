@@ -58,6 +58,7 @@ typedef uint64_t _u64;
 #define PTR32
 #endif
 
+#ifndef _MSC_VER
 #ifdef PTR64
 #ifdef _MSC_VER
 #  pragma message ( "Using 64-bit pointers" )
@@ -72,6 +73,7 @@ typedef unsigned long size_t;
 #warning "Using 32-bit pointers"
 #endif
 typedef uint32_t size_t;
+#endif
 #endif
 
 #ifndef _BUILD_RUSTBIND_LIB_

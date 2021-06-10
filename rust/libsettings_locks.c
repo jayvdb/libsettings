@@ -7,6 +7,7 @@
 #include <time.h>
 
 #include <pthread.h>
+#include <pthread_time.h>
 
 #include "libsettings_wrapper.h"
 
