@@ -63,7 +63,7 @@ jobs:
         run: cmake -E make_directory build
 
       - name: Tree
-        run: tree /C/Miniconda/envs/test
+        run: tree C:\Miniconda\envs\test
 
       - name: Configure cmake (WINDOWS)
         if: matrix.os == 'windows-latest'
