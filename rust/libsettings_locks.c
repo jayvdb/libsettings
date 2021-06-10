@@ -23,7 +23,7 @@
 #define NS_PER_HNS      (100ULL)    // NS = nanoseconds
 #define NS_PER_SEC      (MS_PER_SEC * US_PER_MS * NS_PER_US)
 
-#include <minwinbase.h>
+#include <windows.h>
 
 int clock_gettime_realtime(struct timespec *tv)
 {
