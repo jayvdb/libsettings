@@ -62,8 +62,14 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: cmake -E make_directory build
 
-      - name: Tree
-        run: tree C:\Miniconda\envs\test
+      - name: Dir
+        run: dir C:\Miniconda\envs\test\share\Library\pkgconfig
+
+      - name: Tree pkg
+        run: tree /F C:\Miniconda\envs\test\share\Library\pkgconfig
+
+      - name: Tree inc
+        run: tree /F C:\Miniconda\envs\test\share\Library\include
 
       - name: Configure cmake (WINDOWS)
         if: matrix.os == 'windows-latest'
