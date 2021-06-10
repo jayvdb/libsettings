@@ -66,7 +66,7 @@ jobs:
         run: dir C:\Miniconda\envs\test\Library\share\pkgconfig
 
       - name: Tree inc
-        run: tree /F C:\Miniconda\envs\test\Library\share\include
+        run: tree /F C:\Miniconda\envs\test\Library\include
 
       - name: Configure cmake (WINDOWS)
         if: matrix.os == 'windows-latest'
