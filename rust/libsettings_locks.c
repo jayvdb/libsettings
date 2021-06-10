@@ -7,11 +7,32 @@
 #include <time.h>
 
 #include <pthread.h>
-#include <pthread_time.h>
 
 #include "libsettings_wrapper.h"
 
 //#define _DEBUG 1
+
+#ifdef _MSC_VER
+int clock_gettime_realtime(struct timespec *tv)
+{
+    FILETIME ft;
+    ULARGE_INTEGER hnsTime;
+
+    GetSystemTimeAsFileTime(&ft);
+
+    hnsTime.LowPart = ft.dwLowDateTime;
+    hnsTime.HighPart = ft.dwHighDateTime;
+
+    // To get POSIX Epoch as baseline, subtract the number of hns intervals from Jan 1, 1601 to Jan 1, 1970.
+    hnsTime.QuadPart -= (11644473600ULL * HNS_PER_SEC);
+
+    // modulus by hns intervals per second first, then convert to ns, as not to lose resolution
+    tv->tv_nsec = (long) ((hnsTime.QuadPart % HNS_PER_SEC) * NS_PER_HNS);
+    tv->tv_sec = (long) (hnsTime.QuadPart / HNS_PER_SEC);
+
+    return 0;
+}
+#endif
 
 bool c_libsettings_init(libsettings_ctx_t *ctx) {
   assert(ctx != NULL);
@@ -79,8 +100,11 @@ bool c_libsettings_wait(libsettings_ctx_t *ctx, uint32_t ms) {
 
   struct timespec ts_now = {0};
   struct timespec ts_delta = {.tv_sec = 0, .tv_nsec = 1000000 * ms};
-
+#ifdef _MSC_VER
+  int err = clock_gettime_realtime(&ts_now);
+#else
   int err = clock_gettime(CLOCK_REALTIME, &ts_now);
+#endif
   if (err != 0) {
 #ifdef _DEBUG
     fprintf(stderr, "%s: clock_gettime = #%d (%s:%d)\n", __FUNCTION__, err,
