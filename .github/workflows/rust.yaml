@@ -62,13 +62,15 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: cmake -E make_directory build
 
+      - name: Tree
+        run: tree /C/Miniconda/envs/test
+
       - name: Configure cmake (WINDOWS)
         if: matrix.os == 'windows-latest'
         working-directory: ${{ github.workspace }}/build
         shell: bash
         run: |
           cmake ../rust -DCMAKE_INSTALL_PREFIX:PATH=$CONDA_PREFIX -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} -DPKG_CONFIG_EXECUTABLE:FILEPATH=$CONDA_PREFIX/Library/bin/pkg-config.exe
-          tree /C/Miniconda/envs/test
 
       - name: Build
         working-directory: ${{ github.workspace }}/build
