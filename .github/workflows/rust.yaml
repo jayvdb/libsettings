@@ -68,6 +68,12 @@ jobs:
       - name: Tree inc
         run: tree /F C:\Miniconda\envs\test\Library\include
 
+      - name: Tree
+        run: tree C:\Miniconda\envs\test\Library\
+
+      - name: Tree lib
+        run: tree /F C:\Miniconda\envs\test\Library\lib
+
       - name: Configure cmake (WINDOWS)
         if: matrix.os == 'windows-latest'
         working-directory: ${{ github.workspace }}/build
