@@ -68,6 +68,7 @@ jobs:
         shell: bash
         run: |
           cmake ../rust -DCMAKE_INSTALL_PREFIX:PATH=$CONDA_PREFIX -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} -DPKG_CONFIG_EXECUTABLE:FILEPATH=$CONDA_PREFIX/Library/bin/pkg-config.exe
+          tree /C/Miniconda/envs/test
 
       - name: Build
         working-directory: ${{ github.workspace }}/build
