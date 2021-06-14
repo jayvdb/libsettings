@@ -18,7 +18,10 @@ fn main() {
         .build();
     println!("cargo:rustc-link-search=native={}/lib", dst.display());
 
-    dst = Config::new(".").very_verbose(true).build();
+    dst = Config::new(".")
+        .very_verbose(true)
+        .cflag("-I/c/Miniconda/envs/test/Library/include")
+        .build();
     println!("cargo:rustc-link-search=native={}/lib", dst.display());
 
     println!("cargo:rustc-link-lib=static=sbp");
