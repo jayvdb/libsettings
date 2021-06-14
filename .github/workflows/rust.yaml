@@ -72,10 +72,15 @@ jobs:
           toolchain: stable
           override: true
 
-      - name: cargo Build
+      - name: cargo Build (Windows)
         env:
           LIBCLANG_PATH: ${{ env.LIBCLANG_PATH_WIN }}
         run: cargo build -vv
+        if: matrix.os == 'windows-latest'
+
+      - name: cargo Build (Non-Windows)
+        run: cargo build -vv
+        if: matrix.os != 'windows-latest'
 
       - name: Run tests
         run: cargo test
