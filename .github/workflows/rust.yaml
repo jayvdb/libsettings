@@ -21,6 +21,7 @@ jobs:
 
       - uses: conda-incubator/setup-miniconda@v2
         with:
+          activate-environment: "test"
           auto-update-conda: true
           mamba-version: "*"
           channels: conda-forge,defaults
@@ -28,6 +29,12 @@ jobs:
 
       - name: Show conda installation info
         run: conda info
+
+      - name: Show envvars
+        shell: cmd
+        run: |
+          conda activate test
+          set
 
       - name: Install pthreads
         if: matrix.os == 'windows-latest'
