@@ -31,6 +31,7 @@ jobs:
         run: conda info
 
       - name: Show envvars
+        shell: cmd
         run: set
 
       - name: Install pthreads
