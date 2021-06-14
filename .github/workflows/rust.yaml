@@ -1,5 +1,7 @@
 name: Rust
 on: [ push, pull_request ]
+env:
+  LIBCLANG_PATH_WIN: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Tools/Llvm/x64/bin"
 jobs:
   test:
     name: Tests
@@ -60,7 +62,7 @@ jobs:
         run: |
           cmake ../rust -DCMAKE_C_FLAGS=-I/c/Miniconda/envs/test/Library/include -DCMAKE_INSTALL_PREFIX:PATH=$CONDA_PREFIX -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} -DPKG_CONFIG_EXECUTABLE:FILEPATH=$CONDA_PREFIX/Library/bin/pkg-config.exe
 
-      - name: Build
+      - name: cmake Build
         working-directory: ${{ github.workspace }}/build
         run: cmake --build . --target install --config ${{ matrix.build-type }}
 
@@ -70,7 +72,9 @@ jobs:
           toolchain: stable
           override: true
 
-      - name: Build
+      - name: cargo Build
+        env:
+          LIBCLANG_PATH: ${{ env.LIBCLANG_PATH_WIN }}
         run: cargo build -vv
 
       - name: Run tests
