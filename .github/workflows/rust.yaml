@@ -32,7 +32,9 @@ jobs:
 
       - name: Show envvars
         shell: cmd
-        run: set
+        run: |
+          conda activate test
+          set
 
       - name: Install pthreads
         if: matrix.os == 'windows-latest'
