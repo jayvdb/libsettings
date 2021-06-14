@@ -29,6 +29,9 @@ fn main() {
     println!("cargo:rustc-link-lib=static=swiftnav");
     println!("cargo:rustc-link-lib=static=rustbindsettings");
 
+    println!("cargo:rustc-link-search=native=c:/Miniconda/envs/test/Library/lib");
+    println!("cargo:rustc-link-lib=static=pthreads_static");
+
     let bindings = bindgen::Builder::default()
         .header("./libsettings_wrapper.h")
         .clang_arg("-I../include")
