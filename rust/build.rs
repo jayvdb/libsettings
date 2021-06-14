@@ -20,7 +20,7 @@ fn main() {
 
     dst = Config::new(".")
         .very_verbose(true)
-        .cflag("-I/c/Miniconda/envs/test/Library/include")
+        .cflag("-Ic:/Miniconda/envs/test/Library/include")
         .build();
     println!("cargo:rustc-link-search=native={}/lib", dst.display());
 
