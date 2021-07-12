@@ -12,3 +12,7 @@ yaml-rust = "*"
 [build-dependencies]
 bindgen = "0.54"
 cmake = "*"
+
+[dev-dependencies]
+mockstream = { git = "https://github.com/lazy-bitfield/rust-mockstream", rev="0.0.4" }
+sbp = { git = "https://github.com/swift-nav/libsbp.git", rev = "ce5e3d14ae4284c53982bc3fd79a2fa15976ff9f", features = [] }
