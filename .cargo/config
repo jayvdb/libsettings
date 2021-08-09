@@ -1,0 +1,7 @@
+[target.x86_64-pc-windows-msvc]
+linker = "rust-lld"
+rustflags = ["-C", "link-args=-lshell32",
+             "-C", "link-args=-l:libpthread.a",
+             "-C", "link-args=-l:libcrtdll.a",
+             "-C", "link-args=-l:libkernel32.a",
+             "-C", "link-args=-l:libmsvcr90d.a"]
