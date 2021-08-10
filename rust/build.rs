@@ -32,7 +32,7 @@ fn main() {
     // ldflags https://github.com/alexcrichton/cmake-rs/issues/55
     if cfg!(windows) {
         println!("cargo:rustc-link-search=native=c:/Miniconda/envs/test/Library/lib");
-        println!("cargo:rustc-link-lib=static=pthreads_static");
+        println!("cargo:rustc-link-lib=static=pthreads");
     }
 
     let bindings = bindgen::Builder::default()
