@@ -20,7 +20,6 @@ fn main() {
 
     dst = Config::new(".")
         .very_verbose(true)
-        .cflag("-Ic:/Miniconda/envs/test/Library/include")
         .build();
     println!("cargo:rustc-link-search=native={}/lib", dst.display());
 
@@ -28,13 +27,6 @@ fn main() {
     println!("cargo:rustc-link-lib=static=settings");
     println!("cargo:rustc-link-lib=static=swiftnav");
     println!("cargo:rustc-link-lib=static=rustbindsettings");
-
-    // ldflags https://github.com/alexcrichton/cmake-rs/issues/55
-    if cfg!(windows) {
-        println!("cargo:rustc-link-search=native=c:/Miniconda/envs/test/Library/lib");
-        //println!("cargo:rustc-link-lib=static=pthreads");
-    }
-    //println!("cargo:rustc-flags=-pthread");  not allowed
 
     let bindings = bindgen::Builder::default()
         .header("./libsettings_wrapper.h")
