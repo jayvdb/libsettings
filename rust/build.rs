@@ -34,7 +34,7 @@ fn main() {
         println!("cargo:rustc-link-search=native=c:/Miniconda/envs/test/Library/lib");
         //println!("cargo:rustc-link-lib=static=pthreads");
     }
-    println!("cargo:rustc-flags=-pthread");
+    //println!("cargo:rustc-flags=-pthread");  not allowed
 
     let bindings = bindgen::Builder::default()
         .header("./libsettings_wrapper.h")
