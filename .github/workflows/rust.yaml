@@ -117,4 +117,9 @@ jobs:
       - name: Run tests
         env:
           LIBCLANG_PATH: ${{ env.LIBCLANG_PATH_WIN }}
+          CC: gcc
+          CXX: g++
+          TESTENV: rust
+          OS_NAME: windows
+          CMAKE_GENERATOR: MinGW Makefiles
         run: cargo test --target=x86_64-pc-windows-gnu
