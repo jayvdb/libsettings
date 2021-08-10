@@ -21,6 +21,7 @@ jobs:
         run: |
           which g++
           ls C:/ProgramData/chocolatey/lib/mingw/tools/install/mingw64/include
+          ls c:/mingw64
           set
 
       - name: Install msys2 packages
