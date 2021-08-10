@@ -19,6 +19,26 @@ jobs:
       - name: Set up Visual Studio shell
         uses: egor-tensin/vs-shell@v2
 
+
+      - name: Install MinGW 6.4.0
+        run: |
+          choco install -y --no-progress --allow-downgrade --version=6.4.0 mingw;
+          choco install -y --no-progress sqlite;
+
+      - name: Install msys2 packages
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          install: git base-devel
+          update: true
+
+      - name: Install MinGW Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable-x86_64-pc-windows-gnu
+          override: true
+          components: rustfmt, clippy
+
       - uses: conda-incubator/setup-miniconda@v2
         with:
           activate-environment: "test"
@@ -82,6 +102,11 @@ jobs:
       - name: cargo Build (Windows)
         env:
           LIBCLANG_PATH: ${{ env.LIBCLANG_PATH_WIN }}
+          CC: gcc
+          CXX: g++
+          TESTENV: rust
+          OS_NAME: windows
+          CMAKE_GENERATOR: MinGW Makefiles
         run: cargo build -vv
         if: matrix.os == 'windows-latest'
 
@@ -90,4 +115,4 @@ jobs:
         if: matrix.os != 'windows-latest'
 
       - name: Run tests
-        run: cargo test
+        run: cargo test --target=x86_64-pc-windows-gnu
