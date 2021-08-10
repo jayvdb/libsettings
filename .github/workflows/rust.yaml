@@ -115,4 +115,6 @@ jobs:
         if: matrix.os != 'windows-2019'
 
       - name: Run tests
+        env:
+          LIBCLANG_PATH: ${{ env.LIBCLANG_PATH_WIN }}
         run: cargo test --target=x86_64-pc-windows-gnu
