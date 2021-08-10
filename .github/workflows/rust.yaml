@@ -21,6 +21,12 @@ jobs:
           choco install -y --no-progress --allow-downgrade --version=6.4.0 mingw;
           choco install -y --no-progress sqlite;
 
+      - name: Find mingw
+        shell: bash
+        run: |
+          which g++
+          ls C:/ProgramData/chocolatey/lib/mingw
+
       - name: Install msys2 packages
         uses: msys2/setup-msys2@v2
         with:
