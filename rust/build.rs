@@ -19,7 +19,6 @@ fn main() {
     println!("cargo:rustc-link-search=native={}/lib", dst.display());
 
     dst = Config::new(".")
-        .very_verbose(true)
         .build();
     println!("cargo:rustc-link-search=native={}/lib", dst.display());
 
@@ -30,7 +29,7 @@ fn main() {
 
     let bindings = bindgen::Builder::default()
         .header("./libsettings_wrapper.h")
-        .clang_arg("-Ic:/mingw64/include")
+        //.clang_arg("-Ic:/mingw64/include")
         .clang_arg("-I../include")
         .clang_arg("-I../third_party/libswiftnav/include")
         .clang_arg("-I../third_party/libsbp/c/include")
