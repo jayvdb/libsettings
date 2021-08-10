@@ -24,9 +24,8 @@ jobs:
         shell: bash
         run: |
           which g++
-          ls C:/ProgramData/chocolatey/lib/mingw/tools
-          ls C:/ProgramData/chocolatey/lib/mingw/tools/install
-          ls c:/MinGW/include
+          ls C:/ProgramData/chocolatey/lib/mingw/tools/install/mingw64
+          ls c:/MinGW/
 
       - name: Install msys2 packages
         uses: msys2/setup-msys2@v2
