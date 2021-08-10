@@ -20,7 +20,6 @@ fn main() {
 
     dst = Config::new(".")
         .very_verbose(true)
-        .cflag("-Ic:/MinGW/include")
         .cflag("-Ic:/Miniconda/envs/test/Library/include")
         .build();
     println!("cargo:rustc-link-search=native={}/lib", dst.display());
@@ -38,7 +37,7 @@ fn main() {
 
     let bindings = bindgen::Builder::default()
         .header("./libsettings_wrapper.h")
-        .clang_arg("-Ic:/MinGW/include")
+        .clang_arg("-IC:/ProgramData/chocolatey/lib/mingw/tools/install/mingw64/include")
         .clang_arg("-I../include")
         .clang_arg("-I../third_party/libswiftnav/include")
         .clang_arg("-I../third_party/libsbp/c/include")
