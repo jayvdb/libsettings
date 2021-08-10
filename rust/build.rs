@@ -37,6 +37,7 @@ fn main() {
 
     let bindings = bindgen::Builder::default()
         .header("./libsettings_wrapper.h")
+        .clang_arg("-Dc:/MinGW/include")
         .clang_arg("-I../include")
         .clang_arg("-I../third_party/libswiftnav/include")
         .clang_arg("-I../third_party/libsbp/c/include")
