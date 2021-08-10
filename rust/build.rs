@@ -18,8 +18,7 @@ fn main() {
         .build();
     println!("cargo:rustc-link-search=native={}/lib", dst.display());
 
-    dst = Config::new(".")
-        .build();
+    dst = Config::new(".").build();
     println!("cargo:rustc-link-search=native={}/lib", dst.display());
 
     println!("cargo:rustc-link-lib=static=sbp");
