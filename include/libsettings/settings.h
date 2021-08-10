@@ -22,7 +22,9 @@
 #ifndef LIBSETTINGS_SETTINGS_H
 #define LIBSETTINGS_SETTINGS_H
 
-#ifndef _RUSTC_BINDGEN_
+#ifdef _RUSTC_BINDGEN_
+#include <stdint.h>
+#else
 #include <inttypes.h>
 #include <stddef.h>
 #endif
