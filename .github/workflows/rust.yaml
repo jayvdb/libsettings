@@ -16,10 +16,6 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Install MinGW 6.4.0
-        run: |
-          choco install -y --no-progress --allow-downgrade --version=6.4.0 mingw;
-
       - name: Find mingw
         shell: bash
         run: |
