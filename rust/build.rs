@@ -32,8 +32,9 @@ fn main() {
     // ldflags https://github.com/alexcrichton/cmake-rs/issues/55
     if cfg!(windows) {
         println!("cargo:rustc-link-search=native=c:/Miniconda/envs/test/Library/lib");
-        println!("cargo:rustc-link-lib=static=pthreads");
+        //println!("cargo:rustc-link-lib=static=pthreads");
     }
+    println!("cargo:rustc-flags=-pthread");
 
     let bindings = bindgen::Builder::default()
         .header("./libsettings_wrapper.h")
