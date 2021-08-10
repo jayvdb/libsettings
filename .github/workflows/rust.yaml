@@ -10,33 +10,21 @@ jobs:
         build-type: [Release]
         os:
           - windows-2019
+          - macos-latest
+          - ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
         with:
           submodules: recursive
+
       - uses: bwoodsend/setup-winlibs-action@v1
+        if: matrix.os == 'windows-2019'
         with:
           destination: c:/
 
-      - name: Find mingw
-        shell: bash
-        run: |
-          which g++
-          ls C:/ProgramData/chocolatey/lib/mingw/tools/install/mingw64/include
-          ls c:/
-          ls c:/mingw64
-          ls c:/mingw64/include
-          set
-
-      - name: Install msys2 packages
-        uses: msys2/setup-msys2@v2
-        with:
-          msystem: MINGW64
-          install: git base-devel
-          update: true
-
       - name: Install MinGW Rust toolchain
+        if: matrix.os == 'windows-2019'
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
@@ -44,12 +32,15 @@ jobs:
           override: true
           components: rustfmt, clippy
 
-      - name: Run tests
+      - name: Run tests (Windows)
+        if: matrix.os == 'windows-2019'
         env:
           LIBCLANG_PATH: ${{ env.LIBCLANG_PATH_WIN }}
           CC: gcc
           CXX: g++
-          TESTENV: rust
-          OS_NAME: windows
           CMAKE_GENERATOR: MinGW Makefiles
         run: cargo test --target=x86_64-pc-windows-gnu
+
+      - name: Run tests (Non-Windows)
+        if: matrix.os != 'windows-2019'
+        run: cargo test
