@@ -16,7 +16,7 @@ add_library(settings
             setting_type_int.c
             setting_type_str.c)
 
-target_link_libraries(settings PRIVATE swiftnav)
+target_link_libraries(settings swiftnav)
 
 target_include_directories(settings PUBLIC ${PROJECT_SOURCE_DIR}/include)
 target_include_directories(settings PRIVATE $<TARGET_PROPERTY:sbp,INCLUDE_DIRECTORIES>)
