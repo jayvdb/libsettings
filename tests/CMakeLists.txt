@@ -30,20 +30,3 @@
       )
 
   target_link_libraries(test_libsettings swiftnav gtest_main)
-
-  if (WIN32)
-    add_custom_command(
-      TARGET test_libsettings POST_BUILD
-      COMMENT "Running unit tests"
-      #COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/bin/Debug/libgtest.dll ${CMAKE_BINARY_DIR}/tests
-      #COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/bin/Debug/libgtest_main.dll ${CMAKE_BINARY_DIR}/tests
-      COMMAND test_libsettings
-    )
-  else (WIN32)
-    add_custom_command(
-      TARGET test_libsettings POST_BUILD
-      COMMENT "Running unit tests"
-      COMMAND test_libsettings
-    )
-  endif (WIN32)
-
