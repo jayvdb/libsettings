@@ -60,4 +60,7 @@ jobs:
 
       - name: Run tests
         shell: bash
-        run: ${{ runner.workspace }}/b/tests/Debug/test_libsettings.exe
+        run: ls '${{ runner.workspace }}'
+
+      - name: Run tests
+        run: '${{ runner.workspace }}\b\tests\Debug\test_libsettings.exe'
