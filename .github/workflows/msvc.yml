@@ -23,6 +23,13 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Fix libswiftnav dll
+        shell: bash
+        run: |
+          cd third_party/libswiftnav
+          patch -p1 < ../../libswiftnav-dll-fix.patch
+          cd ../..
+
       - uses: lukka/get-cmake@latest
       - name: dir
         run: find $RUNNER_WORKSPACE
