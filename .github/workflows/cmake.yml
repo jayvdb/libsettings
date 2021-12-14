@@ -22,16 +22,15 @@ jobs:
           cmakeflags: -DPYTHON=python3 -DCMAKE_POSITION_INDEPENDENT_CODE=1
           build_command: build-wrapper-linux-x86-64 --out-dir sonar-out make VERBOSE=1
           preset: coverage
-          post_command: gcovr --sonarqube -o sonarqube.cov
-      - name: Check sonarqube.cov
+      - name: Check sonar-out/
         shell: bash
-        run: ls sonarqube.cov sonar-out/
+        run: ls sonar-out/
       - uses: docker://jayvdb/ghaction-cmake:0.16-sonarcloud-scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          build_command: 'true'
+          build_command: gcovr --sonarqube -o sonarqube.cov
           test_command: 'true'
           post_command: >
             sonar-scanner -Dsonar.host.url=https://sonarcloud.io \
