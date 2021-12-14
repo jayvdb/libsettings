@@ -27,13 +27,16 @@ jobs:
         shell: bash
         run: ls sonarqube.cov
       - uses: docker://jayvdb/ghaction-cmake:0.16-sonarcloud-scanner
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           dependencies_debian: python3-pip python3-setuptools python3-wheel libpython3-dev
           build_command: 'true'
           post_command: >
             sonar-scanner -Dsonar.host.url=https://sonarcloud.io \
               -Dsonar.organization=${{ github.repository_owner }} \
-              -Dsonar.projectKey=${{ github.repository_owner }}_${{ env.REPOSITORY_NAME }} \
+              -Dsonar.projectKey=jayvdb_test \
               -Dsonar.cfamily.build-wrapper-output=sonar-out \
               -Dsonar.typescript.file.suffixes=- \
               -Dsonar.cfamily.gcov.reportsPath=. \
