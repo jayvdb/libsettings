@@ -13,9 +13,28 @@ jobs:
         with:
           fetch-depth: 0
           submodules: recursive
+      - name: Set env.REPOSITORY_NAME
+        shell: bash
+        run: echo "REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
       - uses: docker://jayvdb/ghaction-cmake:0.16-sonarcloud-buildwrapper
         with:
           dependencies_debian: python3-pip python3-setuptools python3-wheel libpython3-dev
           cmakeflags: -DPYTHON=python3 -DCMAKE_POSITION_INDEPENDENT_CODE=1
           build_command: build-wrapper-linux-x86-64 --out-dir sonar-out make VERBOSE=1
           preset: coverage
+          post_command: gcovr --sonarqube -o sonarqube.cov
+      - name: Check sonarqube.cov
+        shell: bash
+        run: ls sonarqube.cov
+      - uses: docker://jayvdb/ghaction-cmake:0.16-sonarcloud-scanner
+        with:
+          dependencies_debian: python3-pip python3-setuptools python3-wheel libpython3-dev
+          build_command: 'true'
+          post_command: >
+            sonar-scanner -Dsonar.host.url=https://sonarcloud.io \
+              -Dsonar.organization=${{ github.repository_owner }} \
+              -Dsonar.projectKey=${{ github.repository_owner }}_${{ env.REPOSITORY_NAME }} \
+              -Dsonar.cfamily.build-wrapper-output=sonar-out \
+              -Dsonar.typescript.file.suffixes=- \
+              -Dsonar.cfamily.gcov.reportsPath=. \
+              -Dsonar.coverageReportPaths=sonarqube.cov
