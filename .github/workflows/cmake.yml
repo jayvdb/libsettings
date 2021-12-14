@@ -25,7 +25,7 @@ jobs:
       - name: Run gcovr
         shell: bash
         run: |
-          sudo apt-get install -y --no-install-recommends gcovr
+          sudo apt-get install -y gcovr
           gcovr --sonarqube -o sonarqube.cov
       - uses: docker://jayvdb/ghaction-cmake:0.16-sonarcloud-scanner-no-gcovr
         env:
