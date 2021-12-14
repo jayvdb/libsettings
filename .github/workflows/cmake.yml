@@ -17,4 +17,5 @@ jobs:
         with:
           dependencies_debian: python3-pip python3-setuptools python3-wheel libpython3-dev
           cmakeflags: -DPYTHON=python3 -DCMAKE_POSITION_INDEPENDENT_CODE=1
+          build_command: build-wrapper-linux-x86-64 --out-dir sonar-out make VERBOSE=1
           preset: coverage
